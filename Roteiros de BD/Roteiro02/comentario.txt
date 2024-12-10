@@ -1,0 +1,27 @@
+Comentarios sobre o roteiro 2 da cadeira de Banco de Dados.
+
+-> Questão1
+
+Adicionei uma tabela chamada "tarefas" com 5 atributos para que o 
+INSERT, pudesse ser aplicado de forma correta.
+
+CREATE TABLE tarefas (
+    id_tarefas INTEGER,
+    funcao TEXT,
+    cpf_funcionario CHAR(11),
+    prioridade INTEGER, 
+    status_tarefa CHAR(1)
+);
+
+-> Questão2
+
+Alterei o tipo do atributo prioridade de INTEGER para BIGINT
+
+
+CREATE TABLE tarefas (
+    id_tarefas BINGINT,
+    funcao TEXT,
+    cpf_funcionario CHAR(11),
+    prioridade BIGINT, 
+    status_tarefa CHAR(1)
+);
