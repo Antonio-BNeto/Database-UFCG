@@ -9,7 +9,6 @@ CREATE TABLE tarefas (
     categoria CHAR(1)
 );
 
-
 -- As iserções abaixo devem ser executadas
 
 INSERT INTO tarefas VALUES (2147483646, 'limpar chão do corredor central',
@@ -27,7 +26,6 @@ INSERT INTO tarefas VALUES (2147483644, 'limpar chão do corredor superior', -- 
 
 INSERT INTO tarefas VALUES (2147483643, 'limpar chão do corredor superior', --  inserção não realizada
 '98765432321', 0, 'FF');
-
 
 -- Questão 2
 
@@ -148,7 +146,8 @@ INSERT INTO tarefas VALUES (2300000000, 'aparar a grama da área frontal', '3232
 -- func_resp_cpf com tamanho 12
 INSERT INTO tarefas VALUES (2147483653, 'aparar a grama da área frontal', '323232329112', 3, 'A');
 
--- Retirando as tuplas de testes inseridas na tabela
+-- Retirando as tuplas inseridas na tabela
+DELETE FROM tarefas WHERE id=2300000000;
 
 -- Letra (B)
 
@@ -191,65 +190,131 @@ INSERT INTO funcionario(cpf, data_nasc, nome, funcao, nivel, superior_cpf) VALUE
 -- não deve funcionar
 INSERT INTO funcionario(cpf, data_nasc, nome, funcao, nivel, superior_cpf) VALUES ('12345678913', '1980-04-09', 'joao da Silva', 'LIMPEZA', 'J', null);
 
-
 -- Questão 9
 
 -- Realizando a inserção de 10 tuplas válidas
 INSERT INTO funcionario (cpf, data_nasc, nome, funcao, nivel, superior_cpf) 
 VALUES
-  ('12345678913', '1985-02-04', 'Rafael', 'SUP_LIMPEZA', 'S', null),
-  ('12345678914', '1992-11-12', 'Igor', 'SUP_LIMPEZA', 'S', '12345678913'),
-  ('12345678915', '1989-04-06', 'Ewerton', 'SUP_LIMPEZA', 'P', null),
-  ('12345678916', '2001-08-17', 'Pedro', 'LIMPEZA', 'J', '12345678914'),
-  ('12345678917', '1999-12-01', 'Rafaella', 'SUP_LIMPEZA', 'J', null),
-  ('12345678918', '1992-08-24', 'Mariana', 'LIMPEZA', 'P', '12345678913'),
-  ('12345678919', '1980-06-18', 'Victor', 'SUP_LIMPEZA', 'S', null),
-  ('12345678920', '1983-02-09', 'Roberto', 'LIMPEZA', 'P', '12345678919'),
-  ('12345678921', '1996-07-26', 'Leon', 'SUP_LIMPEZA', 'P', null),
-  ('12345678922', '1988-03-08', 'Bruce Wayne', 'SUP_LIMPEZA', 'J', '12345678919'); -- inserção realizada
+  ('12345678913', '1997-03-05', 'Rafael', 'SUP_LIMPEZA', 'S', null),
+  ('12345678914', '1998-04-10', 'Igor', 'SUP_LIMPEZA', 'S', '12345678913'),
+  ('12345678915', '1999-05-23', 'Ewerton', 'SUP_LIMPEZA', 'P', null),
+  ('12345678916', '2000-06-01', 'Pedro', 'LIMPEZA', 'J', '12345678914'),
+  ('12345678917', '2001-07-28', 'Rafaella', 'SUP_LIMPEZA', 'J', null),
+  ('12345678918', '2002-08-22', 'Mariana', 'LIMPEZA', 'P', '12345678913'),
+  ('12345678919', '2003-09-21', 'Victor', 'SUP_LIMPEZA', 'S', null),
+  ('12345678920', '2004-10-19', 'Roberto', 'LIMPEZA', 'P', '12345678919'),
+  ('12345678921', '2005-11-18', 'Leon', 'SUP_LIMPEZA', 'P', null),
+  ('12345678922', '2006-12-17', 'Bruce Wayne', 'SUP_LIMPEZA', 'J', '12345678919'); -- inserção realizada
   
 -- 10 exemplos de inserções que não funcionam
 
--- nivel = 'A' não é permitido, só são permitidos os valores 'J', 'P' ou 'S'
-INSERT INTO funcionario (cpf, data_nasc, nome, funcao, nivel, superior_cpf) VALUES
-('12345678923', '1985-02-19', 'Ronaldo', 'SUP_LIMPEZA', 'A', null); -- inserção não realizada 
-
--- funcao = 'LIMPEZA', mas superior_cpf = null, o que não é permitido
-INSERT INTO funcionario (cpf, data_nasc, nome, funcao, nivel, superior_cpf) VALUES
-('12345678924', '1982-11-11', 'Elisa', 'LIMPEZA', 'S', null); -- inserção não realizada
-
--- a chave estrangeira, superio_cpf, aponta para um funcionário que não existe, o que não é permitido
-INSERT INTO funcionario (cpf, data_nasc, nome, funcao, nivel, superior_cpf) VALUES
-('12345678925', '1986-05-08', 'Raissa', 'LIMPEZA', 'J', '12345675820'); -- inserção não realizada
-
--- a chave primária, cpf, é igual a chave primária de outro funcionário, o que não é permitido
-INSERT INTO funcionario (cpf, data_nasc, nome, funcao, nivel, superior_cpf) VALUES
-('12345678913', '1986-04-13', 'Afonso Pereira', 'SUP_LIMPEZA', 'P', null); -- inserção não realizada
-
--- funcao = 'GERENTE' não é permitido, só são permitidos os valores 'SUP_LIMPEZA' ou 'LIMPEZA'
-INSERT INTO funcionario (cpf, data_nasc, nome, funcao, nivel, superior_cpf) VALUES
-('12345678932', '1987-01-02', 'Bianca', 'GERENTE', 'J', null); -- inserção não realizada
-
--- a chave primária, cpf, não pode ser null
-INSERT INTO funcionario (cpf, data_nasc, nome, funcao, nivel, superior_cpf) VALUES
-(null, '1992-03-11', 'Jorge', 'SUP_LIMPEZA', 'S', null); -- inserção não realizada
-
--- a coluna data_nasc não pode ser null
-INSERT INTO funcionario (cpf, data_nasc, nome, funcao, nivel, superior_cpf) VALUES
-('12345678928', null, 'Fernanda', 'SUP_LIMPEZA', 'P', null); -- inserção não realizada
-
--- a coluna nome não pode ser null
-INSERT INTO funcionario (cpf, data_nasc, nome, funcao, nivel, superior_cpf) VALUES
-('12345678929', '1999-10-03', null, 'SUP_LIMPEZA', 'P', null); -- inserção não realizada
-
--- a coluna funcao não pode ser null
-INSERT INTO funcionario (cpf, data_nasc, nome, funcao, nivel, superior_cpf) VALUES
-('12345678930', '1986-06-16', 'Douglas', null, 'J', null); -- inserção não realizada
-
--- a coluna nivel não pode ser null
-INSERT INTO funcionario (cpf, data_nasc, nome, funcao, nivel, superior_cpf) VALUES
-('12345678931', '1987-07-18', 'Arthur', 'SUP_LIMPEZA', null, null); -- inserção não realizada
+INSERT INTO funcionario (cpf, data_nasc, nome, funcao, nivel, superior_cpf) 
+VALUES
+    ('12345678923', '2004-10-19', 'Ronaldo', 'SUP_LIMPEZA', 'A', null),
+    ('12345678924', '2004-10-19', 'Elisa', 'LIMPEZA', 'S', null),
+    ('12345678925', '2004-10-19', 'Raissa', 'LIMPEZA', 'J', '12345675820'),
+    ('12345678913', '2004-10-19', 'Afonso Pereira', 'SUP_LIMPEZA', 'P', null),
+    ('12345678932', '2004-10-19', 'Bianca', 'GERENTE', 'J', null),
+    (null, '2004-10-19', 'Jorge', 'SUP_LIMPEZA', 'S', null),
+    ('12345678928', null, 'Fernanda', 'SUP_LIMPEZA', 'P', null),
+    ('12345678929', '2004-10-19', null, 'SUP_LIMPEZA', 'P', null),
+    ('12345678930', '2004-10-19', 'Douglas', null, 'J', null),
+    ('12345678931', '2004-10-19', 'Arthur', 'SUP_LIMPEZA', null, null);
 
 -- Questão 10
 
--- ()
+INSERT INTO funcionario(cpf, data_nasc, nome, funcao, nivel, superior_cpf)
+VALUES('32323232911', '1967-06-22', 'Mirieny', 'SUP_LIMPEZA', 'S', NULL);
+
+INSERT INTO funcionario(cpf, data_nasc, nome, funcao, nivel, superior_cpf)
+VALUES('98765432111', '1988-07-30', 'Niela', 'LIMPEZA', 'P', '32323232911');
+
+INSERT INTO funcionario(cpf, data_nasc, nome, funcao, nivel, superior_cpf)
+VALUES('98765432122', '1998-08-27', 'Jé', 'LIMPEZA', 'P', '32323232911');
+
+-- (Opção 1) ON DELETE CASCADE
+
+-- Adicionando a chave estrangeira
+ALTER TABLE tarefas ADD CONSTRAINT tarefa_fkey_func_resp_cpf FOREIGN KEY (func_resp_cpf) REFERENCES funcionario(cpf) ON DELETE CASCADE;
+
+--Erro mostrado:
+/*
+ERROR:  insert or update on table "tarefas" violates foreign key constraint "tarefas_fkey_func_resp_cpf"
+DETAIL:  Key (func_resp_cpf)=(32323232955) is not present in table "funcionario".
+*/
+
+--Significado do erro:
+
+/*
+os cpfs que tão na tabela tarefas não estão 
+na coluna da tabela funcionario.
+*/
+
+-- Solução
+
+-- Adicionando funcionarios que tem cpf existentes na coluna func_resp_cpf da tabela tarefas
+INSERT INTO funcionario (cpf, data_nasc, nome, funcao, nivel, superior_cpf)
+VALUES
+    ('32323232955', '1997-03-05', 'Rafael', 'SUP_LIMPEZA', 'S', null),
+    ('32323232911', '1998-04-10', 'Igor', 'SUP_LIMPEZA', 'S', '12345678911'),
+    ('98765432111', '1999-05-23', 'Ewerton', 'LIMPEZA', 'J', '12345678911'),
+    ('98765432122', '2000-06-01', 'Pedro', 'SUP_LIMPEZA', 'P', null);
+
+
+-- Realizando a remoção do funcionario com o 'menor' cpf que possui alguma tarefa
+
+-- Encontrando o funcionario
+SELECT f.*FROM funcionario f INNER JOIN tarefas t ON
+f.cpf = t.func_resp_cpf GROUP BY f.cpf ORDER BY CAST(f.cpf AS DECIMAL) LIMIT 1;
+
+-- Saida da busca
+/*
+ cpf     | data_nasc  | nome |   funcao    | nivel | superior_cpf
+-------------+------------+------+-------------+-------+--------------
+ 32323232911 | 1998-04-10 | Igor | SUP_LIMPEZA | S     | 12345678911
+*/
+
+-- Deletando o funcionario encontrado
+DELETE FROM funcionario f WHERE f.cpf = '32323232911';
+
+-- (Opção 2) ON DELETE RESTRICT
+
+-- Adicionando a chave estrangeira 
+ALTER TABLE tarefas DROP CONSTRAINT tarefas_func_resp_cpf_fkey;
+ALTER TABLE tarefas ADD FOREIGN KEY (func_resp_cpf) REFERENCES funcionario (cpf) ON DELETE RESTRICT;
+
+-- Executando um comando DELETE que seja bloqueado pela constraint.
+
+-- Buscando funcionarios que tem os resquisitos
+SELECT f.* FROM funcionario f INNER JOIN tarefas t ON
+f.cpf = t.func_resp_cpf GROUP BY f.cpf;
+
+-- Saida da busca
+/*
+  cpf     | data_nasc  |  nome   |   funcao    | nivel | superior_cpf
+-------------+------------+---------+-------------+-------+--------------
+ 32323232955 | 1997-03-05 | Rafael  | SUP_LIMPEZA | S     |
+ 98765432111 | 1999-05-23 | Ewerton | LIMPEZA     | J     | 12345678911
+ 98765432122 | 2000-06-01 | Pedro   | SUP_LIMPEZA | P     |
+*/
+
+-- Deletando o funcionario Rafael
+DELETE FROM funcionario f WHERE f.cpf = '32323232955';
+
+--- Questão 11
+
+-- Removendo da tabela tarefas o NOT NULL da coluna func_resp_cpf
+ALTER TABLE tarefas ALTER COLUMN func_resp_cpf DROP NOT NULL;
+
+-- A coluna func_resp_cpf pode ser NULL somente se status for igual a 'P'
+
+-- Removendo a constraint existente da coluna status para adicionala novamente acrescentando a condição imposta na coluna func_resp_cpf
+ALTER TABLE tarefas DROP CONSTRAINT tarefas_status_check;
+-- Adicionando a constraint pedida na questão
+ALTER TABLE tarefas ADD CHECK ((status IN ('E', 'C') AND func_resp_cpf IS NOT NULL) OR status = 'P');
+
+--- ON DELETE SET NULL
+
+-- Adicionando a chave estrangeira de acordo com a questão
+ALTER TABLE tarefas DROP CONSTRAINT tarefas_func_resp_cpf_fkey;
+ALTER TABLE tarefas ADD FOREIGN KEY (func_resp_cpf) REFERENCES funcionario (cpf) ON DELETE SET NULL;
