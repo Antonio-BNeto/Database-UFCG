@@ -98,3 +98,50 @@ Questão 13: Retornar os nomes (primeiro e último) dos funcionários e seus dep
 SELECT e.fname, e.lname, d.dependent_name
 FROM EMPLOYEE e, DEPENDENT d
 WHERE e.ssn=d.essn AND d.essn IS NOT NULL;
+
+/*
+Questão 14: Retorna o nome compĺeto e o salário dos funcio9nários que possuem salário
+maior do que 50 mil. A relação de retorno deve ter apenas duas colunas: "full_name" e
+"salary". O nome completo deve ser formado pela concatenação dos valores das 3 colunas
+com dados sobrenomes. Use o operador (||) para concaternar strings. 
+*/
+
+SELECT (e.fname ||' '|| e.lname) AS full_name, e.salary  
+FROM EMPLOYEE e
+WHERE e.salary > 50000;
+
+/*
+Questão 15: Retornar os projetos (nome) e os departamentos responsáveis (nome);
+*/
+
+SELECT p.pname AS project_name, d.dname AS department_name
+FROM PROJECT p, DEPARTMENT d
+WHERE p.dnum = d.dnumber;
+
+/*
+Questão 16: Retornar os projetys (nome)e osgerentes dos departamentos responsáveis
+(primeiro nome). Retorne resultados apenas para projetos com código maior do que 30.
+*/
+
+SELECT p.pname AS project_name, e.fname AS manager_name
+FROM PROJECT p, DEPARTMENT d, EMPLOYEE e
+WHERE p.pnumber>30 AND d.dnumber = p.dnum AND d.mgrssn = e.ssn;
+
+/*
+Questão 17: Retornar os projetos (nome) e os funcionários que trabalham neles (primeiro nome).
+*/
+
+SELECT p.pname AS project_name, e.fname AS employee_name
+FROM PROJECT p, WORKS_ON w, EMPLOYEE e
+WHERE w.pno = p.pnumber AND w.essn = e.ssn;
+
+/*
+Questão 18: Retornar os nomes dos dependentes dos funcionários quetrabalham no projeto 91.
+Retornar também o nome (primeiro) do funcionário e o relacionamento entre eles.
+Retornar os atributos na mesma ordem que aparecem abaixo.
+*/
+
+SELECT e.fname, d.dependent_name, d.relationship
+FROM EMPLOYEE e, DEPENDENT d, WORKS_ON w
+WHERE w.pno = 91 AND e.ssn= w.essn AND e.ssn = d.essn;
+--ORDER BY e.fname ASC;  
