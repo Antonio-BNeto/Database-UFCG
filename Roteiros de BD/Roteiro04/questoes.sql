@@ -106,7 +106,7 @@ maior do que 50 mil. A relação de retorno deve ter apenas duas colunas: "full_
 com dados sobrenomes. Use o operador (||) para concaternar strings. 
 */
 
-SELECT (e.fname ||' '|| e.lname) AS full_name, e.salary  
+SELECT (e.fname ||''|| e.minit ||''|| e.lname) AS full_name, e.salary  
 FROM EMPLOYEE e
 WHERE e.salary > 50000;
 
