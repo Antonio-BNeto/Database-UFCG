@@ -52,14 +52,65 @@ Questão 6: Retornar a qantidade de funcionários que trabalham no(s) projetos q
 funcionários.
 */
 
-SELECT MIN(qtd) 
-FROM(SELECT COUNT(*) qtd FROM PROJECT p, WORKS_ON w WHERE p.pnumber= w.pno); 
+SELECT MIN(qtd_emp) AS qtd 
+FROM(SELECT COUNT(*) AS qtd_emp FROM WORKS_ON GROUP BY pno) AS company; 
 
 /*
 Questão 7: Faça uma consulta equivalente à anterior, porém, retorne também o número do projeto.
 Há outras consultas mais fáceis abaixo, portanto, caso prefira, deixe esta para depois. Porém o
-interessante em faze esta questão agora é que ela mistura conceitos explorados nas questões anteriores
+interessante em fazer esta questão agora é que ela mistura conceitos explorados nas questões anteriores
 (3 a 6), acrescida de um pequeno detalhe.
 */
 
 
+/*
+Questão 8: Retornar a média salarial por projeto.
+*/
+SELECT w.pno AS num_proj, AVG(e.salary) AS media_salary
+FROM EMPLOYEE e
+JOIN WORKS_ON w ON w.essn = e.ssn
+GROUP BY w.pno;
+
+/*
+Questão 9: Altere a consulta anterior para retornar também os nomes dos projetos.
+*/
+
+/*
+Questão 10: Observer que o projeto 92 tem a maior média salarial. Faça uma consulta
+para retornar os funcionários que não trabalham neste projeto mas que possuam salário maior
+do que todos os funcionários que trabalham neste projeto. Basta retornar o primeiro
+nome e o salário destes funcionários. O número 92 pode aparecer na consulta.
+*/
+
+
+/*
+Questão 11: Retornar a quantidade de projetos por funcionário, ordenando pela quantidade
+*/
+
+SELECT e.ssn AS ssn, COUNT(w.pno) AS qtd_proj
+FROM EMPLOYEE e
+LEFT JOIN WORKS_ON w ON e.ssn = w.essn
+GROUP BY ssn
+ORDER BY qtd_proj ASC;
+
+/*
+Questão 12: Retornar a quantidadae de funcionários por projeto (incluindo os funcionários "sem
+projeto"). Retornar apenas os projetos que possuem menos de 5 funcionários. Ordernar pela quantidade.
+*/
+
+SELECT w.pno AS num_proj, COUNT(e.ssn) AS qtd_func
+FROM EMPLOYEE e
+LEFT JOIN WORKS_ON w ON e.ssn = w.essn
+GROUP BY w.pno
+HAVING COUNT(w.essn) < 5
+ORDER BY qtd_func ASC;
+
+/*
+Questão 13: Usando consultas aninhadas e sem usar junções (nem mesmo as jujnções feitas com
+produto cartesiano + filtragem usando cláusula WHERE), formule uma consulta para retornar os
+primeiros nomes dos funcionários que trabalham no(s) projeto(s) localizado(s) em Sugarland e 
+que possue dependentes.
+*/
+
+SELECT fname
+FROM (SELECT )
